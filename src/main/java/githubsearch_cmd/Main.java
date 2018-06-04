@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,7 +26,7 @@ public class Main {
 			
 			if( list != null){
 			System.out.println();
-			System.out.println("Enter 1-10 for details, 'n' for a new search, and 'q' to quit program ");
+			System.out.println("Enter 1-"+list.size()+" for details, 'n' for a new search, and 'q' to quit program ");
 			input = x.next();
 			}
 			
@@ -51,9 +52,13 @@ public class Main {
 				
 				if(index > 0 && index <= list.size()){
 					model = list.get(index-1);
+					System.out.println(model.getRepo_name());
+					System.out.println(model.getRepo_owner());
+					System.out.println(model.getRepo_url());
+				}else{
+					System.out.println("Invalid serial number, Please enter number from 1 to "+list.size());
 				}
-				System.out.println(model.getRepo_name());
-				System.out.println(model.getRepo_owner());
+				
 
 			}
 			
@@ -95,6 +100,7 @@ public class Main {
 			SearchResultModel model = new SearchResultModel();
 			model.setRepo_name(arr[1]);
 			model.setRepo_owner(arr[0]);
+			model.setRepo_url("https://github.com"+repo_sign.attr("href"));
 			
 			list.add(model);
 			
@@ -113,9 +119,10 @@ public class Main {
 	
 	private static String prepareQueryString(String query){
 		
+		StringTokenizer st = new StringTokenizer(query);
 		StringBuilder sb = new StringBuilder("");
-		for (String str : query.trim().split(" ")) {
-			sb.append(str.trim() + "+");
+		while (st.hasMoreTokens()) {
+			sb.append(st.nextToken() + "+");
 		}
 		
 		query = sb.substring(0, sb.length()-1).toString();
