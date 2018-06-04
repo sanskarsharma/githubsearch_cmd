@@ -47,9 +47,17 @@ public class Main {
 			
 			Element e = elem.getElementsByClass("col-8").first();
 			Element e1 = e.getElementsByTag("h3").first();
-			String repo_sign = e1.getElementsByTag("a").first().text();
+			Element repo_sign = e1.getElementsByTag("a").first();
 			
-			System.out.println(i+ ". "+repo_sign);
+			String arr[] = repo_sign.text().split("/");
+			
+			
+			SearchResultModel model = new SearchResultModel();
+			model.setRepo_name(arr[1]);
+			model.setRepo_owner(arr[0]);
+			
+			
+			System.out.println(i+ ". "+"");
 			i++;
 
 			
