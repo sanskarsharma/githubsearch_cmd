@@ -2,12 +2,29 @@ package githubsearch_cmd;
 
 public class SearchResultModel {
 	
-	String repo_name;
-	String repo_owner;
-	String repo_desc;
-	String repo_url;
-	String last_updated;
+	private String repo_name;
+	private String repo_owner;
+	private String repo_desc;
+	private String repo_url;
+	private String last_updated;
 	
+	public void print(){
+		if(this.repo_name != null){
+			System.out.println(this.repo_name);
+		}
+		if(this.repo_owner != null){
+			System.out.println(this.repo_owner);
+		}
+		if(this.repo_desc != null){
+			System.out.println(this.repo_desc);
+		}
+		if(this.repo_url != null){
+			System.out.println(this.repo_url);
+		}
+		if(this.last_updated != null){
+			System.out.println(this.last_updated);
+		}
+	}
 	
 	
 	

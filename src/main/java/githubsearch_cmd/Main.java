@@ -18,11 +18,10 @@ public class Main {
 		
 		
 		ArrayList<SearchResultModel> list = null;
-		SearchResultModel model = null;
 		
-		String input = "n";
 		Scanner x = new Scanner(System.in);
-		
+		String input = "n";
+
 		System.out.println("Welcome, This is a command line program for showing github search results. Please press <enter> to continue");
 
 		while(true){
@@ -36,21 +35,15 @@ public class Main {
 			if(input.equals("n")){
 				x.nextLine();  
 				System.out.println("Enter search term(s)");
-				String query = prepareQueryString(x.nextLine());
-				
-				Document doc = null;
-				try {
-					
-					doc = Jsoup.connect("https://github.com/search?q="+query).get();
-					
-				} catch (IOException e) {
-					
+				String query = GitSearch.prepareQueryString(x.nextLine());
+				Document doc = GitSearch.getDocument(query);
+				if(doc == null){
 					System.out.println("Could not connect to the internet, Please check your internet connection and try again");
-					//e.printStackTrace();
 					continue;
 				}
+				GitSearch gitsearch = new GitSearch(doc);
+				list = gitsearch.getResultList();
 				
-				list = getAsList(doc);
 				if( list!=null && list.size()>0){
 					showResults(list);
 				}
@@ -73,12 +66,7 @@ public class Main {
 				}
 				
 				if(index > 0 && index <= list.size()){
-					model = list.get(index-1);
-					System.out.println(model.getRepo_name());
-					System.out.println(model.getRepo_owner());
-					System.out.println(model.getRepo_url());
-					System.out.println(model.getRepo_desc());
-					
+					list.get(index-1).print();					
 				}else{
 					System.out.println("Invalid serial number, Please enter number from 1 to "+list.size());
 				}
@@ -90,76 +78,20 @@ public class Main {
 			
 			
 		}
-		
-		
-		
-		
+			
+			
 	}
 	
 	private static void showResults(ArrayList<SearchResultModel> list){
 		
 		int i = 0;
 		while(i<list.size()){
-			System.out.println((i+1)+ ". "+list.get(i).repo_name);
+			SearchResultModel model = list.get(i);
+			System.out.println((i+1)+ ". "+model.getRepo_name() + " (by "+model.getRepo_owner()+")");
 			i++;
 		}
 		
 		
 	}
-	
-	private static ArrayList<SearchResultModel> getAsList(Document doc){
-				
-				
-		ArrayList<SearchResultModel> list = new ArrayList<SearchResultModel>();
-		
-		Element element = doc.getElementsByClass("repo-list").first();
-		if( element == null){
-			return null;
-		}
-		Elements elements = element.getElementsByClass("repo-list-item");
-		
-		for (Element elem : elements) {
-						
-			Element e = elem.getElementsByClass("col-8").first();
-			Element e1 = e.getElementsByTag("h3").first();
-			Element repo_sign = e1.getElementsByTag("a").first();
-			
-			Element one_line = e.getElementsByTag("p").first();
-			String text = one_line.text();
-			
-			String arr[] = repo_sign.text().split("/");
-			
-			
-			SearchResultModel model = new SearchResultModel();
-			model.setRepo_name(arr[1]);
-			model.setRepo_owner(arr[0]);
-			model.setRepo_url("https://github.com"+repo_sign.attr("href"));
-			model.setRepo_desc(text);
-			
-			list.add(model);
-			
-		}
-		
-		return list;
-		
-	}
-	
-	private static String prepareQueryString(String query){
-		
-		StringTokenizer st = new StringTokenizer(query);
-		StringBuilder sb = new StringBuilder("");
-		while (st.hasMoreTokens()) {
-			sb.append(st.nextToken() + "+");
-		}
-		
-		query = sb.substring(0, sb.length()-1).toString();
-
-		System.out.println(query);
-		
-		return query;
-		
-	}
-	
-	
 
 }
