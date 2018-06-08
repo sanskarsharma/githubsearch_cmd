@@ -85,7 +85,7 @@ public class Main {
 	
 	private static void showResults(ArrayList<SearchResultModel> list){
 		
-		System.out.println("Search results : ")
+		System.out.println("Search results : ");
 		int i = 0;
 		while(i<list.size()){
 			SearchResultModel model = list.get(i);

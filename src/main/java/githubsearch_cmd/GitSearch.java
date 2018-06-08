@@ -88,6 +88,7 @@ public class GitSearch {
 			sb.append(st.nextToken() + "+");
 		}
 		
+		if(sb.length()>0)
 		query = sb.substring(0, sb.length()-1).toString();
 
 //		System.out.println(query);
