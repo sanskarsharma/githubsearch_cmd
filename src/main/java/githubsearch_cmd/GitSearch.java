@@ -43,7 +43,7 @@ public class GitSearch {
 		
 		Element element = this.document.getElementsByClass("repo-list").first();
 		if( element == null){
-			return null;
+			return new ArrayList();
 		}
 		Elements elements = element.getElementsByClass("repo-list-item");
 		
@@ -90,7 +90,7 @@ public class GitSearch {
 		
 		query = sb.substring(0, sb.length()-1).toString();
 
-		System.out.println(query);
+//		System.out.println(query);
 		
 		return query;
 		

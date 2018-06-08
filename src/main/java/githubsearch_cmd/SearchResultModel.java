@@ -10,19 +10,19 @@ public class SearchResultModel {
 	
 	public void print(){
 		if(this.repo_name != null){
-			System.out.println(this.repo_name);
+			System.out.println("Repo name : " +this.repo_name);
 		}
 		if(this.repo_owner != null){
-			System.out.println(this.repo_owner);
+			System.out.println("Repo owner : " +this.repo_owner);
 		}
 		if(this.repo_desc != null){
-			System.out.println(this.repo_desc);
+			System.out.println("Repo description : " +this.repo_desc);
 		}
 		if(this.repo_url != null){
-			System.out.println(this.repo_url);
+			System.out.println("Repo url : " +this.repo_url);
 		}
 		if(this.last_updated != null){
-			System.out.println(this.last_updated);
+			System.out.println("Repo last updated : " +this.last_updated);
 		}
 	}
 	

@@ -26,7 +26,7 @@ public class Main {
 
 		while(true){
 			
-			if( list != null){
+			if( list != null && list.size()>0){
 			System.out.println();
 			System.out.println("Enter 1-"+list.size()+" for details, 'n' for a new search, and 'q' to quit program ");
 			input = x.next();
@@ -44,7 +44,7 @@ public class Main {
 				GitSearch gitsearch = new GitSearch(doc);
 				list = gitsearch.getResultList();
 				
-				if( list!=null && list.size()>0){
+				if(list.size()>0){
 					showResults(list);
 				}
 				else{
