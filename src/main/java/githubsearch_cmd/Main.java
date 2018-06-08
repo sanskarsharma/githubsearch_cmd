@@ -36,6 +36,7 @@ public class Main {
 				x.nextLine();  
 				System.out.println("Enter search term(s)");
 				String query = GitSearch.prepareQueryString(x.nextLine());
+				System.out.println("getting results ... ");
 				Document doc = GitSearch.getDocument(query);
 				if(doc == null){
 					System.out.println("Could not connect to the internet, Please check your internet connection and try again");
@@ -84,6 +85,7 @@ public class Main {
 	
 	private static void showResults(ArrayList<SearchResultModel> list){
 		
+		System.out.println("Search results : ")
 		int i = 0;
 		while(i<list.size()){
 			SearchResultModel model = list.get(i);
